@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.SemanticsProperties.EditableText
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -35,13 +36,13 @@ fun ProfileScreen(padding: PaddingValues) {
     var surname by remember { mutableStateOf("Фамилия") }
     var description by remember { mutableStateOf("Описание") }
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(padding)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         ProfileImage()
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -51,6 +52,7 @@ fun ProfileScreen(padding: PaddingValues) {
         EditableText(label = "Описание", text = description) { description = it }
     }
 }
+
 @Composable
 fun ProfileImage() {
     AsyncImage(
@@ -67,12 +69,13 @@ fun ProfileImage() {
 fun EditableText(label: String, text: String, onTextChange: (String) -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable { showDialog = true },
-        horizontalAlignment = Alignment.CenterHorizontally){
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(text = text, fontSize = 18.sp, fontWeight = FontWeight.Medium)
         if (showDialog) {
             EditDialog(
@@ -87,6 +90,7 @@ fun EditableText(label: String, text: String, onTextChange: (String) -> Unit) {
         }
     }
 }
+
 @Composable
 fun EditDialog(
     label: String,
@@ -117,4 +121,11 @@ fun EditDialog(
             }
         }
     )
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun ProfileScreenPreview() {
+    ProfileScreen(padding = PaddingValues())
 }
